@@ -1,15 +1,37 @@
+'use client';
+
+import { useState } from 'react';
 import styles from './page.module.css';
-import Header from '@/components/Header';
-import Form from '@/components/Form';
+import TaskBox from '@/components/TaskBox';
 
 export default function Home() {
+  const [input, setInput] = useState('');
+  const [tasks, setTasks] = useState([]);
+
+  function addTask() {
+    console.log(tasks);
+    setTasks([...tasks, input]);
+  }
+
   return (
     <>
-      <Header className={styles.header} />
       <div className={styles.page}>
-        <div className={styles.sideHero}></div>
         <div className={styles.main}>
-          <Form />
+          <div className={styles.mainHeader}>
+            <label htmlFor="taskInput">
+              <input name="taskInput" className={styles.formInput} value={input} onChange={(e) => setInput(e.target.value)}></input>
+            </label>
+            <button className={styles.formButton} onClick={addTask}>
+              Add Note
+            </button>
+          </div>
+          <div>
+            <ul>
+              {tasks.map((task, index) => (
+                <li key={index}>{<TaskBox msg={task} />}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>
