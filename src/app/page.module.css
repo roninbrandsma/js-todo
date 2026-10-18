@@ -25,7 +25,7 @@
   flex-direction: column;
   height: 90vh;
   width: 50vw;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 .mainHeader {
@@ -42,7 +42,7 @@
   content: '';
   bottom: 0;
   width: 100%;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
 }
 
 .formInput {

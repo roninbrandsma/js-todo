@@ -3,14 +3,28 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 import TaskBox from '@/components/TaskBox';
+import axios from 'axios';
 
 export default function Home() {
   const [input, setInput] = useState('');
   const [tasks, setTasks] = useState([]);
 
-  function addTask() {
-    console.log(tasks);
-    setTasks([...tasks, input]);
+  async function addTask() {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const newTask = input.trim();
+
+    if (!newTask) return;
+
+    try {
+      const response = await axios.post(`${API_URL}/todo`, { task: newTask });
+
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setInput('');
+
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
