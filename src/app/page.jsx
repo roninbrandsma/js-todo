@@ -12,14 +12,14 @@ export default function Home() {
 
   async function addTask() {
     const newTask = {
-      id: crypto.randomUUID(),
+      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
       msg: input.trim()
     };
 
     if (!newTask) return;
 
     try {
-      const response = await axios.post(`${API_URL}/todo`, { task: newTask });
+      const response = await axios.post(`/api/todo`, { task: newTask });
 
       setTasks((prevTasks) => [...prevTasks, newTask]);
       setInput('');
@@ -32,7 +32,7 @@ export default function Home() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`${API_URL}/todo/${id}`);
+      await axios.delete(`/api/todo/${id}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error('Failed to delete task:', error);
